@@ -1,0 +1,11 @@
+sentry-sdk[fastapi]==1.25.1
+structlog==23.1.0
+structlog-sentry-logger==1.0.1
+orjson==3.8.7
+alembic==1.9.1
+aio-pika==9.0.5
+celery==5.3.4
+pydantic==1.10.9
+vosk==0.3.45
+redis==4.4.2
+requests==2.31.0

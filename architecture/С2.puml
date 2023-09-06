@@ -1,0 +1,18 @@
+@startuml
+skinparam componentStyle uml2
+actor Клиент as Client
+component AsyncAPI
+component WebApi
+component RabbitMq
+component VoiceService
+database Elasticsearch
+database Redis
+
+Client <-right-> WebApi: Запрос к Api, содержащий аудиофайл
+WebApi -right-> RabbitMq: Создание события на обработку аудиофайла
+RabbitMq -right-> VoiceService: Запрос на транскрибацию c process_id
+VoiceService -down-> AsyncAPI: Запрос на поиск в базе с process_id
+AsyncAPI -down-> Elasticsearch: Query запрос с параметрами поиска
+AsyncAPI -left-> Redis: Сохранение в кеш результат поиска
+WebApi --> Redis: Получение результата по process_id
+@enduml
