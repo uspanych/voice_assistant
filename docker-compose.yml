@@ -77,8 +77,6 @@ services:
     image: redis:latest
     networks:
       - backend
-    ports:
-      - "6379:6379"
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 30s

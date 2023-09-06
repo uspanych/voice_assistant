@@ -1,4 +1,5 @@
 import asyncio
+
 from aio_pika.abc import AbstractIncomingMessage
 
 from adapters.rabbit import RMQ

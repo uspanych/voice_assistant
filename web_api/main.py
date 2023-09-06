@@ -6,7 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 
 from api.v1 import search
-
 from core.config import settings
 from services.utils.preview import shutdown, startup
 

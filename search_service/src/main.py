@@ -1,11 +1,11 @@
-from elasticsearch import AsyncElasticsearch
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
-from redis.asyncio import Redis
 
 from api.v1 import films, genres, persons
 from core.config import settings
-from db import elastic, redis
+from services.utils.preview import startup, shutdown
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -15,17 +15,11 @@ app = FastAPI(
 )
 
 
-@app.on_event('startup')
-async def startup():
-    redis.redis = Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
-    elastic.es = AsyncElasticsearch(
-        hosts=[f'{settings.ELASTIC_HOST}:{settings.ELASTIC_PORT}'])
-
-
-@app.on_event('shutdown')
-async def shutdown():
-    await redis.redis.close()
-    await elastic.es.close()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await startup()
+    yield
+    await shutdown()
 
 
 app.include_router(films.router, prefix='/api/v1/films', tags=['films'])

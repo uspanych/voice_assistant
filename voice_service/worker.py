@@ -9,6 +9,8 @@ import requests
 from celery import Celery
 from vosk import KaldiRecognizer, Model
 
+from core.config import settings
+
 celery = Celery(__name__)
 celery.conf.broker_url = os.getenv(
     "CELERY_BROKER_URL", "redis://localhost:6379")
@@ -62,6 +64,6 @@ def request_async_api(body: bytes):
 
     name = name.group(1).strip()
     requests.get(
-        f"http://search_service:8000/{METHODS[type_]}",
+        f"{settings.search_service_url}/{METHODS[type_]}",
         params=dict(query=name, process_id=process_id)
     )

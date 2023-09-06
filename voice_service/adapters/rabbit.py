@@ -1,14 +1,12 @@
 import asyncio
-from typing import Any, Callable
+from typing import Any
 
 import orjson
 from aio_pika import DeliveryMode, Exchange, ExchangeType, connect_robust
-from aio_pika.abc import AbstractIncomingMessage, AbstractQueue
+from aio_pika.abc import AbstractQueue
 from aio_pika.channel import Channel
 from aio_pika.connection import Connection
 from aio_pika.message import Message
-
-from core.logger import logger
 
 
 class RMQ:

@@ -1,12 +1,12 @@
 from http import HTTPStatus
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException
 
+from models.base import PaginateQueryParams
 from models.films import FilmDetailResponseModel, FilmResponseModel, FilmSort
 from services.films import FilmService, get_film_service
 from services.utils.constants import FILM_NOT_FOUND
-from models.base import PaginateQueryParams
-from typing import Annotated
 
 router = APIRouter()
 

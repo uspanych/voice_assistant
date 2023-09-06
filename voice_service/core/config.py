@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     rabbit_user: str = Field(..., env="RABBIT_USER")
     rabbit_pass: str = Field(..., env="RABBIT_PASS")
 
+    search_service_url: str = Field(..., env='SEARCH_SERVICE')
+
     celery_broker_url: str = Field(
         "redis://localhost:6379",
         env="CELERY_BROKER_URL"
